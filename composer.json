@@ -30,8 +30,7 @@
     "switon/redis": "^1.0"
   },
   "require-dev": {
-    "switon/testing": "^1.0",
-    "phpunit/phpunit": "^12.0"
+    "switon/testing": "^1.0"
   },
   "config": {
     "allow-plugins": {
