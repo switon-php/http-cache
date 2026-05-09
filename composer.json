@@ -1,0 +1,52 @@
+{
+  "name": "switon/http-cache",
+  "description": "HTTP response caching filter for Switon Framework",
+  "type": "library",
+  "keywords": [
+    "switon",
+    "http",
+    "cache",
+    "filter",
+    "responses"
+  ],
+  "homepage": "https://github.com/switon-php/http-cache",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "switon",
+      "email": "admin@switon.dev"
+    }
+  ],
+  "support": {
+    "source": "https://github.com/switon-php/http-cache",
+    "issues": "https://github.com/switon-php/http-cache/issues",
+    "docs": "https://docs.switon.dev/latest/http-cache"
+  },
+  "require": {
+    "php": ">=8.3",
+    "switon/core": "^1.0",
+    "switon/http": "^1.0",
+    "switon/event": "^1.0",
+    "switon/redis": "^1.0"
+  },
+  "require-dev": {
+    "switon/testing": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Switon\\HttpCache\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Switon\\HttpCache\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "switon": {
+      "listeners": [
+        "Switon\\HttpCache\\Filter\\PageCacheFilter"
+      ]
+    }
+  }
+}
