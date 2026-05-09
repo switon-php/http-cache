@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -24,13 +24,10 @@ jobs:
           coverage: none
 
       - name: Install package dependencies
-        uses: ramsey/composer-install@v3
-        with:
-          composer-options: --no-interaction --prefer-dist
+        run: composer install --no-interaction --prefer-dist
 
       - name: Validate composer metadata
         run: composer validate --no-check-lock --no-plugins
 
       - name: Run fast package tests
-        working-directory: tests
-        run: bash run.sh --fast
+        run: vendor/bin/phpunit --configuration tests/phpunit.xml.dist --testsuite=unit --display-deprecations --display-phpunit-notices
