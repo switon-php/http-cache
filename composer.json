@@ -1,0 +1,68 @@
+{
+    "name": "switon/http-cache",
+    "description": "Redis-backed per-action HTTP caching with request-derived keys and ETag revalidation for Switon Framework",
+    "type": "library",
+    "keywords": [
+        "switon",
+        "http",
+        "page-cache",
+        "cache",
+        "filter",
+        "responses"
+    ],
+    "homepage": "https://github.com/switon-php/http-cache",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "switon",
+            "email": "admin@switon.dev"
+        }
+    ],
+    "support": {
+        "source": "https://github.com/switon-php/http-cache",
+        "issues": "https://github.com/switon-php/http-cache/issues",
+        "docs": "https://docs.switon.dev/latest/http-cache"
+    },
+    "require": {
+        "php": ">=8.3",
+        "switon/core": "^1.0",
+        "switon/event": "^1.0",
+        "switon/http": "^1.0",
+        "switon/redis": "^1.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.0",
+        "switon/testing": "^1.0",
+        "phpstan/extension-installer": "^1.4"
+    },
+    "config": {
+        "allow-plugins": {
+            "switon/composer-extra": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Switon\\HttpCache\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Switon\\HttpCache\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "phpstan": "@php vendor/bin/phpstan analyse",
+        "test": "@php vendor/bin/phpunit --configuration tests/phpunit.xml.dist --testsuite=all --display-deprecations --display-phpunit-notices"
+    },
+    "extra": {
+        "switon": {
+            "listeners": [
+                "Switon\\HttpCache\\Filter\\PageCacheFilter"
+            ]
+        },
+        "branch-alias": {
+            "dev-dev": "1.0.x-dev"
+        }
+    }
+}
