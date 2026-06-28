@@ -10,6 +10,7 @@ use Switon\Core\ContextManagerInterface;
 use Switon\Core\StopFlow;
 use Switon\Http\Event\HeadersSending;
 use Switon\Http\Event\RequestReady;
+use Switon\Http\RequestHandlerInterface;
 use Switon\Http\RequestInterface;
 use Switon\Http\ResponseInterface;
 use Switon\HttpCache\Attribute\PageCache;
@@ -627,7 +628,7 @@ class PageCacheFilterTest extends TestCase
 
         $filter = new TestablePageCacheFilter('cache:test:');
         $filter->inject($contextManager, $request, $response, $redis);
-        $event = new HeadersSending($response);
+        $event = new HeadersSending($this->createStub(\Switon\Http\ServerInterface::class), $response);
         $filter->onResponseHeadersSending($event);
     }
 
@@ -648,7 +649,7 @@ class PageCacheFilterTest extends TestCase
 
         $filter = new TestablePageCacheFilter('cache:test:');
         $filter->inject($contextManager, $request, $response, $redis);
-        $event = new HeadersSending($response);
+        $event = new HeadersSending($this->createStub(\Switon\Http\ServerInterface::class), $response);
         $filter->onResponseHeadersSending($event);
     }
 
@@ -670,7 +671,7 @@ class PageCacheFilterTest extends TestCase
 
             $filter = new TestablePageCacheFilter('cache:test:');
             $filter->inject($contextManager, $request, $response, $redis);
-            $event = new HeadersSending($response);
+            $event = new HeadersSending($this->createStub(\Switon\Http\ServerInterface::class), $response);
             $filter->onResponseHeadersSending($event);
         }
     }
@@ -696,7 +697,7 @@ class PageCacheFilterTest extends TestCase
 
         $filter = new TestablePageCacheFilter('cache:test:');
         $filter->inject($contextManager, $request, $response, $redis);
-        $event = new HeadersSending($response);
+        $event = new HeadersSending($this->createStub(\Switon\Http\ServerInterface::class), $response);
         $filter->onResponseHeadersSending($event);
     }
 
@@ -751,7 +752,7 @@ class PageCacheFilterTest extends TestCase
 
         $filter = new TestablePageCacheFilter('cache:test:');
         $filter->inject($contextManager, $request, $response, $redis);
-        $event = new HeadersSending($response);
+        $event = new HeadersSending($this->createStub(\Switon\Http\ServerInterface::class), $response);
         $filter->onResponseHeadersSending($event);
 
         $this->assertSame("max-age={$context->ttl}", $headers['Cache-Control'] ?? null);
@@ -794,12 +795,15 @@ class PageCacheFilterTest extends TestCase
 
         $filter = new TestablePageCacheFilter('cache:test:');
         $filter->inject($contextManager, $request, $response, $redis);
-        $event = new HeadersSending($response);
+        $event = new HeadersSending($this->createStub(\Switon\Http\ServerInterface::class), $response);
         $filter->onResponseHeadersSending($event);
     }
 
     private function createReadyEvent(string $method): RequestReady
     {
-        return new RequestReady(new ReflectionMethod(PageCacheFilterControllerStub::class, $method));
+        return new RequestReady(
+            $this->createStub(RequestHandlerInterface::class),
+            new ReflectionMethod(PageCacheFilterControllerStub::class, $method)
+        );
     }
 }
