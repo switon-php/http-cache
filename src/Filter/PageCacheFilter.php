@@ -6,6 +6,7 @@ namespace Switon\HttpCache\Filter;
 
 use ReflectionMethod;
 use Switon\Core\AppInterface;
+use Switon\Core\Attributes;
 use Switon\Core\Attribute\Autowired;
 use Switon\Core\ContextAware;
 use Switon\Core\ContextManagerInterface;
@@ -76,12 +77,8 @@ class PageCacheFilter implements ContextAware
      */
     protected function getPageCache(ReflectionMethod $rMethod): PageCacheAttribute|false
     {
-        if (($attributes = $rMethod->getAttributes(PageCacheAttribute::class)) !== []) {
-            /** @noinspection PhpIncompatibleReturnTypeInspection */
-            return $attributes[0]->newInstance();
-        } else {
-            return false;
-        }
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return Attributes::first($rMethod, PageCacheAttribute::class) ?? false;
     }
 
     /**
