@@ -47,14 +47,12 @@ use function trim;
 class PageCacheFilter implements ContextAware
 {
     #[Autowired] protected AppInterface $app;
-
     #[Autowired] protected ContextManagerInterface $contextManager;
     #[Autowired] protected RequestInterface $request;
     #[Autowired] protected ResponseInterface $response;
     #[Autowired] protected ClientInterface $redisCache;
 
     protected string $prefix;
-
     /** @var array<string, PageCacheAttribute|false> Per-handler cache attribute lookup table. */
     protected array $pageCaches = [];
 
