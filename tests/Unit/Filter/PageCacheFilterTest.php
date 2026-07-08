@@ -16,7 +16,7 @@ use Switon\Http\ResponseInterface;
 use Switon\HttpCache\Attribute\PageCache;
 use Switon\HttpCache\Filter\PageCacheFilter;
 use Switon\HttpCache\Filter\PageCacheFilterContext;
-use Switon\HttpCache\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 use Switon\Redis\ClientInterface;
 
 use function gzencode;
@@ -24,7 +24,7 @@ use function md5;
 use function str_ends_with;
 use function strlen;
 
-final class PageCacheFilterControllerStub
+class PageCacheFilterControllerStub
 {
     #[PageCache(ttl: 120)]
     public function withDefaultKey(): void
@@ -79,7 +79,7 @@ class PageCacheRedisClientDouble implements ClientInterface
     }
 }
 
-final class TestablePageCacheFilter extends PageCacheFilter
+class TestablePageCacheFilter extends PageCacheFilter
 {
     public function inject(
         ContextManagerInterface $contextManager,
@@ -799,7 +799,7 @@ class PageCacheFilterTest extends TestCase
         $filter->onResponseHeadersSending($event);
     }
 
-    private function createReadyEvent(string $method): RequestReady
+    protected function createReadyEvent(string $method): RequestReady
     {
         return new RequestReady(
             $this->createStub(RequestHandlerInterface::class),

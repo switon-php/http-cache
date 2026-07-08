@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Switon\HttpCache\Tests\Unit;
 
 use Switon\HttpCache\Attribute\PageCache;
-use Switon\HttpCache\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class PageCacheAttributeTest extends TestCase
 {

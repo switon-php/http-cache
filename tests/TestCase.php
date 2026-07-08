@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Switon\HttpCache\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use ReflectionClass;
 
 spl_autoload_register(
     static function (string $class): void {
@@ -24,10 +23,4 @@ spl_autoload_register(
 
 abstract class TestCase extends BaseTestCase
 {
-    protected function setProperty(object $target, string $name, mixed $value): void
-    {
-        $reflection = new ReflectionClass($target);
-        $property = $reflection->getProperty($name);
-        $property->setValue($target, $value);
-    }
 }
