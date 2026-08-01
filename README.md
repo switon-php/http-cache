@@ -39,7 +39,7 @@ class ProductController
 }
 ```
 
-Docs: https://docs.switon.dev/latest/http-cache
+Docs: https://github.com/switon-php/http-cache/blob/main/docs/README.md
 
 ## License
 

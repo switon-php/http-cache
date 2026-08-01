@@ -21,7 +21,7 @@
     "support": {
         "source": "https://github.com/switon-php/http-cache",
         "issues": "https://github.com/switon-php/http-cache/issues",
-        "docs": "https://docs.switon.dev/latest/http-cache"
+        "docs": "https://github.com/switon-php/http-cache/blob/main/docs/README.md"
     },
     "require": {
         "php": ">=8.3",
