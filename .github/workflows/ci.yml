@@ -12,7 +12,19 @@ concurrency:
 
 jobs:
   package:
-    runs-on: ubuntu-latest
+    name: PHP ${{ matrix.php }} / ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-latest, php: '8.3' }
+          - { os: ubuntu-latest, php: '8.4' }
+          - { os: ubuntu-latest, php: '8.5' }
+          - { os: macos-15, php: '8.5' }
     steps:
       - name: Checkout source
         uses: actions/checkout@v5
@@ -20,7 +32,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: ${{ matrix.php }}
           coverage: none
 
       - name: Install package dependencies
